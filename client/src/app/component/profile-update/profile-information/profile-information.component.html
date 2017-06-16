@@ -1,0 +1,90 @@
+<form class="form-horizontal" [formGroup]="profile">
+  <div class="row">
+    <div class=" col-md-6">Full Name :</div>
+<div class=" col-md-6">Last Name :</div>
+  </div>
+   <div class="row">
+  <div class="form-group col-md-6">
+    <input type="text" class="form-control" formControlName="firstName">
+    </div>
+    <div class="form-group col-md-6">
+        <input type="text" class="form-control" formControlName="lastName">
+    </div>
+    </div>
+      Gender    :
+    <div class="row form-group">
+
+  <input type="radio" name="gender" formControlName="gender" value="male">male
+               <input type="radio" name="gender" formControlName="gender"  value="female">female<br>
+    </div>
+
+ EMAIL ADDRESS
+     <div class="row">
+       <input type="text" class="form-control" formControlName="email">
+        </div>
+ DATE OF BIRTH       
+  <div formGroupName="dob">
+                     <select class="form-control" formControlName="month" [(ngModel)]="birthModel.month">
+                                <option disabled hidden [value]="birth[0].month">Month</option>
+                                <option *ngFor="let number of Months" [value]="number.value">{{number.name}}</option>
+                              </select>
+                      <select class="form-control" formControlName="day" [(ngModel)]="birthModel.day">
+                               <option disabled hidden [value]="birth[0].day">Day</option>
+                               <option *ngFor="let number of Days">{{number}}</option>
+                             </select>
+                  
+                     <select class="form-control" formControlName="year" [(ngModel)]="birthModel.year">
+                                <option disabled hidden [value]="birth[0].year">Year</option>
+                                <option *ngFor="let number of Years" [value]="number">{{number}}</option>
+                            </select>
+                 </div>
+MOBILE NUMBER
+     <div class="row" formGroupName="mobile">
+         <div class="col-md-6">
+           <select data-placeholder="Choose a country..."  style="width:350px;"  class="multi col-md-offset-6" formControlName="country" [(ngModel)]="selectedCountries">
+                    <!--<option data-image="https://static.pexels.com/photos/17679/pexels-photo.jpg">1</option>
+                    <option data-image="https://static.pexels.com/photos/17679/pexels-photo.jpg">2</option>-->
+                    <option *ngFor="let country of countries" [attr.data-image]="country.url" [attr.data-code]="country.callingCodes" [ngValue]="country">
+                {{country.name}}
+                    </option>
+           </select>
+              
+          </div> 
+          <div class="col-md-1">
+            <input  class="form-control" type="text" formControlName="code">
+          </div>
+            <div class="col-md-3">
+            <input  class="form-control" type="text" formControlName="number" > 
+          </div>   
+ </div> 
+ PROFESSION
+ <div class="row" formGroupName="profession">
+   <div class="col-md-6">
+      <select class="form-control"  data-placeholder="Choose a country..." style="width:350px;" class="language_proficient col-md-offset-6" formControlName="industry">
+       <option *ngFor="let language of lang">{{language}}</option>
+     </select>
+   </div>
+   <div class="col-md-6">
+       <select class="form-control"  data-placeholder="Choose a country..." style="width:350px;" class="profession_title col-md-offset-6" formControlName="title">
+       <option selected="0">Type Profession</option>
+     </select>
+   </div>
+ </div>   
+  LANGUAGES KNOWN
+ <div class="row" formGroupName="languages">
+   <div class="col-md-6">
+     <select class="form-control"  data-placeholder="Choose a country..." style="width:350px;" class="language_proficient col-md-offset-6" formControlName="proficientIn" multiple="multiple">
+       <option *ngFor="let language of lang">{{language}}</option>
+     </select>
+   </div>
+   <div class="col-md-6">
+       <select class="form-control"  data-placeholder="Choose a country..." style="width:350px;" class="language_proficient col-md-offset-6" formControlName="familiarWith" multiple="multiple">
+       <option *ngFor="let language of lang">{{language}}</option>
+     </select>
+   </div>
+ </div> 
+   <input type="submit" value="Signup" class="btn btn-primary big-rounded-btn"/>   
+</form>
+<!--<div>
+  <img id="image" src="https://static.pexels.com/photos/17679/pexels-photo.jpg">
+</div>-->

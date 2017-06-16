@@ -1,0 +1,122 @@
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#signup">Signup</button>
+
+<!-- Modal -->
+<div id="signup" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+
+      <!--Modal Header-->
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <h4>Already Have an CityUsher account?</h4><a (click)="openSigninModal()">Login</a>
+
+      <!--Modal body-->
+      <div class="modal-body">
+
+        <!--signup Form -->
+        <form class="form-horizontal" [formGroup]="register" (ngSubmit)="formSubmit(register.value,register.valid)" #f="ngForm">
+           <div class="row">
+              <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['firstName'].touched && register.controls['firstName'].errors) || (f.submitted && register.controls['firstName'].errors)}">
+                   First Name:<input class="form-control" type="text" formControlName="firstName">
+                     <div invalidmessage="firstName" >
+                        <p *invalidtype="'required'" class="control-label form-group has-error">FirstName should not be Empty</p>
+                        <p *invalidtype="'pattern'">Special characters not allowed</p>
+                     </div>
+               </div>
+                <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['lastName'].touched && register.controls['lastName'].errors) || (f.submitted && register.controls['lastName'].errors)}">
+                    Last Name: <input class="form-control"type="text" formControlName="lastName">  
+                      <div invalidmessage="lastName" >
+                         <p *invalidtype="'required'" class="control-label form-group has-error">Lastname should not be Empty</p>
+                         <p *invalidtype="'pattern'">Special characters not allowed</p>
+                      </div>
+                </div>
+          </div>
+          <div class="row">
+                <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['email'].touched && register.controls['email'].errors) || (f.submitted && register.controls['email'].errors)}">
+                   Email : <input class="form-control"type="text" formControlName="email">
+                     <div invalidmessage="email" >
+                       <p *invalidtype="'required'" class="control-label form-group has-error">Email should not be Empty</p>
+                       <p *invalidtype="'pattern'">Invalid Email Address</p>
+                     </div>
+                </div>
+                <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['cityOfResidence'].touched && register.controls['cityOfResidence'].errors) || (f.submitted && register.controls['cityOfResidence'].errors)}">
+                    City of Residence : <input class="form-control"type="text" formControlName="cityOfResidence" #search>
+                      <div invalidmessage="cityOfResidence" >
+                        <p *invalidtype="'required'" class="control-label form-group has-error">city should not be Empty</p>
+                      </div>
+                </div>
+          </div>
+         <div class="row">
+            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['password'].touched && register.controls['password'].errors) || (f.submitted && register.controls['password'].errors)}">
+                 Password : <input class="form-control"type="text" formControlName="password">
+                      <div invalidmessage="password" >
+                         <p *invalidtype="'required'" class="control-label form-group has-error">Password should not be Empty</p>
+                         <p *invalidtype="'pattern'">Password invalid</p>
+                      </div>
+            </div>
+            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['cPassword'].touched && register.controls['cPassword'].errors) || (f.submitted && register.controls['cPassword'].errors)}">
+                 Confirm Password : <input class="form-control"type="text" formControlName="cPassword">
+                      <div invalidmessage="cPassword" >
+                          <p *invalidtype="'required'" class="control-label form-group has-error">confirm Password should not be Empty</p>
+                          <p *invalidtype="'pattern'">confirm Password should match with password</p>
+                      </div>
+           </div>
+         </div>
+         <!--DOB FormGroup-->
+         <div class="row">
+            <h3>Birthday</h3>
+         </div>
+         <div class="row" formGroupName="dob">
+             <div class="col-md-4 form-group" [ngClass]="{'has-error': (register['controls'].dob['controls'].month.touched && register['controls'].dob['controls'].month.errors) || (f.submitted && register['controls'].dob['controls'].month.errors)}">          
+                    <select class="form-control" formControlName="month" [(ngModel)]="birthModel.month">
+                            <option disabled hidden [value]="birth[0].month">Month</option>
+                            <option *ngFor="let number of Months" [value]="number.value">{{number.name}}</option>
+                     </select>          
+                     <div invalidmessage="dob.month" >
+                             <p *invalidtype="'required'" class="control-label form-group has-error">Please select month</p>
+                             <p *invalidtype="'pattern'">EmailID invalid</p>
+                     </div>   
+             </div>
+             <div class="col-md-4 form-group" [ngClass]="{'has-error': (register['controls'].dob['controls'].day.touched && register['controls'].dob['controls'].day.errors) || (f.submitted && register['controls'].dob['controls'].day.errors)}">
+                     <select class="form-control" formControlName="day" [(ngModel)]="birthModel.day">
+                             <option disabled hidden [value]="birth[0].day">Day</option>
+                             <option *ngFor="let numbe of Days" [value]="numbe">{{numbe}}</option>
+                     </select>
+                     <div invalidmessage="dob.day" >
+                              <p *invalidtype="'required'" class="control-label form-group has-error">Please select day</p>
+                              <p *invalidtype="'pattern'">EmailID invalid</p>
+                     </div>   
+             </div>
+             <div class="col-md-4 form-group"  [ngClass]="{'has-error': (register['controls'].dob['controls'].year.touched && register['controls'].dob['controls'].year.errors) || (f.submitted && register['controls'].dob['controls'].year.errors)}">
+                      <select class="form-control" formControlName="year" [(ngModel)]="birthModel.year">
+                               <option disabled hidden [value]="birth[0].year">Year</option>
+                               <option *ngFor="let numb of Years" [value]="numb">{{numb}}</option>
+                      </select>
+                     <div invalidmessage="dob.year" >
+                                <p *invalidtype="'required'" class="control-label form-group has-error">Please select year</p> 
+                     </div>   
+             </div>
+        </div>
+        <div invalidmessage="dob">
+            <p *invalidtype="'invalid'">Invalid Date</p>
+        </div>         
+        <div class="row">
+              <label><input type="checkbox" value="1" formControlName="tc">I agree to City Usher Terms of Service, Non-Discrimination Policy, Paymens Terms of Service, Privacy Policy, Tourist Refund Policy, and local Guarantee Terms</label>
+               <div invalidmessage="tc" >
+                     <p *invalidtype="'required'" class="control-label form-group has-error">You Should Agree Terms and Conditions</p>    
+              </div>   
+       </div>
+           <input type="submit" value="Signup" class="btn btn-primary big-rounded-btn"/>
+         </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
