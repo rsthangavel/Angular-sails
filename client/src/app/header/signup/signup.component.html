@@ -24,16 +24,16 @@
         <!--signup Form -->
         <form class="form-horizontal" [formGroup]="register" (ngSubmit)="formSubmit(register.value,register.valid)" #f="ngForm">
            <div class="row">
-              <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['firstName'].touched && register.controls['firstName'].errors) || (f.submitted && register.controls['firstName'].errors)}">
-                   First Name:<input class="form-control" type="text" formControlName="firstName">
-                     <div invalidmessage="firstName" >
+              <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['first_name'].touched && register.controls['first_name'].errors) || (f.submitted && register.controls['first_name'].errors)}">
+                   First Name:<input class="form-control" type="text" formControlName="first_name">
+                     <div invalidmessage="first_name" >
                         <p *invalidtype="'required'" class="control-label form-group has-error">FirstName should not be Empty</p>
                         <p *invalidtype="'pattern'">Special characters not allowed</p>
                      </div>
                </div>
-                <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['lastName'].touched && register.controls['lastName'].errors) || (f.submitted && register.controls['lastName'].errors)}">
-                    Last Name: <input class="form-control"type="text" formControlName="lastName">  
-                      <div invalidmessage="lastName" >
+                <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['last_name'].touched && register.controls['last_name'].errors) || (f.submitted && register.controls['last_name'].errors)}">
+                    Last Name: <input class="form-control"type="text" formControlName="last_name">  
+                      <div invalidmessage="last_name" >
                          <p *invalidtype="'required'" class="control-label form-group has-error">Lastname should not be Empty</p>
                          <p *invalidtype="'pattern'">Special characters not allowed</p>
                       </div>
@@ -47,9 +47,9 @@
                        <p *invalidtype="'pattern'">Invalid Email Address</p>
                      </div>
                 </div>
-                <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['cityOfResidence'].touched && register.controls['cityOfResidence'].errors) || (f.submitted && register.controls['cityOfResidence'].errors)}">
-                    City of Residence : <input class="form-control"type="text" formControlName="cityOfResidence" #search>
-                      <div invalidmessage="cityOfResidence" >
+                <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['city_of_residence'].touched && register.controls['city_of_residence'].errors) || (f.submitted && register.controls['city_of_residence'].errors)}">
+                    City of Residence : <input class="form-control"type="text" formControlName="city_of_residence" #search>
+                      <div invalidmessage="city_of_residence" >
                         <p *invalidtype="'required'" class="control-label form-group has-error">city should not be Empty</p>
                       </div>
                 </div>
@@ -62,11 +62,11 @@
                          <p *invalidtype="'pattern'">Password invalid</p>
                       </div>
             </div>
-            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['cPassword'].touched && register.controls['cPassword'].errors) || (f.submitted && register.controls['cPassword'].errors)}">
-                 Confirm Password : <input class="form-control"type="text" formControlName="cPassword">
-                      <div invalidmessage="cPassword" >
+            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['confirm_password'].touched && register.controls['confirm_password'].errors) || (f.submitted && register.controls['confirm_password'].errors)}">
+                 Confirm Password : <input class="form-control"type="text" formControlName="confirm_password">
+                      <div invalidmessage="confirm_password" >
                           <p *invalidtype="'required'" class="control-label form-group has-error">confirm Password should not be Empty</p>
-                          <p *invalidtype="'pattern'">confirm Password should match with password</p>
+                          <p *invalidtype="'invalid'">confirm Password should match with password</p>
                       </div>
            </div>
          </div>
@@ -109,8 +109,8 @@
             <p *invalidtype="'invalid'">Invalid Date</p>
         </div>         
         <div class="row">
-              <label><input type="checkbox" value="1" formControlName="tc">I agree to City Usher Terms of Service, Non-Discrimination Policy, Paymens Terms of Service, Privacy Policy, Tourist Refund Policy, and local Guarantee Terms</label>
-               <div invalidmessage="tc" >
+              <label><input type="checkbox" value="1" formControlName="toc">I agree to City Usher Terms of Service, Non-Discrimination Policy, Paymens Terms of Service, Privacy Policy, Tourist Refund Policy, and local Guarantee Terms</label>
+               <div invalidmessage="toc" >
                      <p *invalidtype="'required'" class="control-label form-group has-error">You Should Agree Terms and Conditions</p>    
               </div>   
        </div>
@@ -124,9 +124,6 @@
 
   </div>
 </div>
-
-
-
 
 <!--Thank You Popup Modal-->
 <!-- Modal -->

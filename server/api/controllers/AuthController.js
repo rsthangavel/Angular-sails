@@ -56,7 +56,7 @@ module.exports = {
             {
                 //create token for Authorized user
                 token = jwt.sign({id: user.id});
-               nodemailer.send(user.email, token, function(err,response){
+                 nodemailer.send(user.email, token, function(err,response){
                     if(err) return res.json(err);
                     else{
                         jwt.issue()
@@ -64,7 +64,7 @@ module.exports = {
                     }
                 });
                
-                return res.json({success: true, message: {data: 'User Data Saved Successfully', name: user.firstName+' '+user.lastName, email: user.email }});
+                return res.json({success: true, message: {data: 'User Data Saved Successfully', name: user.first_name+' '+user.last_name, email: user.email }});
             }
         })
       

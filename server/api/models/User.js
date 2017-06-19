@@ -9,11 +9,11 @@ SALT_WORK_FACTOR = 10;
 module.exports = {
 
   attributes: {
-     firstName : {
+     first_name : {
        type : 'string',
        required : true
      },
-     lastName : {
+     last_name : {
         type : 'string',
         required : true
      },
@@ -26,19 +26,19 @@ module.exports = {
        type : 'string',
        required : true
      },
-     cityOfResidence : {
+     city_of_residence : {
        type : 'string',
        required : true
      },
-     dateOfBirth : {
+     date_of_birth : {
        type : 'date',
        required : true
       },
-      activated : {
+      status : {
         type: 'boolean',
-        defaultsTo : false
+        defaultsTo : 0
       },
-      ForgotPasswordToken : {
+      forgot_password_token : {
         type : 'string',
         default : 'null'        
       }

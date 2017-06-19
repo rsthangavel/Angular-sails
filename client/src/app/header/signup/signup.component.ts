@@ -43,23 +43,23 @@ export class SignupComponent implements OnInit {
   
    //create formgroup for usersignup
     this.register = this._fb.group({
-      firstName         : ['', Validators.compose([Validators.required])],
-      lastName          : ['', Validators.compose([Validators.required])],
+      first_name        : ['', Validators.compose([Validators.required])],
+      last_name         : ['', Validators.compose([Validators.required])],
       email             : ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])],
-      cityOfResidence   : ['', Validators.compose([Validators.required])],
+      city_of_residence : ['', Validators.compose([Validators.required])],
       password          : ['', Validators.compose([Validators.required])],
-      cPassword         : ['', Validators.compose([Validators.required])],
+      confirm_password  : ['', Validators.compose([Validators.required])],
       //Date of Birth formgroup
       dob : this._fb.group({
         month           : ['', Validators.compose([Validators.required])],
         day             : ['', Validators.compose([Validators.required])],
         year            : ['', Validators.compose([Validators.required])]
       }, {validator: dobValidate}),
-      tc                : ['', Validators.required]
+      toc               : ['', Validators.required]
     },  {validator: comparePassword});
 
     //googelMap autocomplete for cityOfResidence
-      this.mapsAPILoader.load().then(() => {
+    this.mapsAPILoader.load().then(() => {
         let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {types: ['(cities)']});
           google.maps.event.addListener(autocomplete,"place_changed", () =>
            {

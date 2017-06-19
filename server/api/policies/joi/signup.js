@@ -4,12 +4,13 @@ var atob = require('atob');
 
 //schema for register routes
 const registerSchema  = Joi.object().options({abortEarly:false}).keys({
-    firstName       : Joi.string().required().alphanum(),
-    lastName        : Joi.string().required().alphanum(),
-    email           : Joi.string().email().required(),
-    cityOfResidence : Joi.string().required(),
-    password        : Joi.string().required().regex(/^[a-zA-Z0-9]{3,30}$/),
-    dateOfBirth     : Joi.date().required()
+    first_name        : Joi.string().required().alphanum(),
+    last_name         : Joi.string().required().alphanum(),
+    email             : Joi.string().email().required(),
+    city_of_residence : Joi.string().required(),
+    password          : Joi.string().required().regex(/^[a-zA-Z0-9@-]{3,30}$/),
+    date_of_birth     : Joi.date().required(),
+    toc               : Joi.boolean().required()
 
 });
 
