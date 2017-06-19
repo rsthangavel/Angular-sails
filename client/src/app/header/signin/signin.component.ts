@@ -14,7 +14,7 @@ export class SigninComponent implements OnInit {
   private _headerService: HeaderAuthService) { }
 
   ngOnInit() {
-    alert(document.cookie);
+   
     this.signin = this._fb.group({
       email : ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])],
       password : ['', Validators.compose([Validators.required])]
