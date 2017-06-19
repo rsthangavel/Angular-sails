@@ -18,7 +18,12 @@ const signinSchema = Joi.object().keys({
           }
           else
           {
-            return res.badRequest(err);
+             let error = [];
+                for(let k of err.details){
+                    error.push(k.path+ ' '+ 'Validation fails');
+                       //console.log(k.path);
+                }
+                return res.badRequest({success: false, message:error});
           }
         })
      }

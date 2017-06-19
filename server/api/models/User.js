@@ -56,13 +56,12 @@ module.exports = {
            });
             
       },
-  //     afterCreate : function(value, next)
-  //     {
-  //        bcrypt.compare('Te1', value.password, function(err, isMatch){
-  //      if(err) return next(err);
-  //       console.log(isMatch);
-  //  })
-
-  //     }  
+  //check password 
+  comparePassword : function(password, user_password, cb){
+   bcrypt.compare(password, user_password, function(err, isMatch){
+       if(err) return cb(err);
+       cb(null, isMatch);
+   })
+}
 };
 

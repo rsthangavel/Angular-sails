@@ -24,6 +24,9 @@ export class SignupComponent implements OnInit {
   birth  :{day:number,month:number,year:number}[] = [{day: undefined,month:undefined, year: undefined}];
   @ViewChild("search")
   public searchElementRef: ElementRef;
+  error :any;
+  success : any;
+
 
   constructor(
    private _fb:FormBuilder,
@@ -75,17 +78,24 @@ export class SignupComponent implements OnInit {
 
   //signup Form submit
   formSubmit(value,valid:boolean) : void  {
- 
+  
+    this.error = '';
     if(valid)
     {
-      console.log(value);
      
         this._headerservice.signup(value).subscribe(
           (data)=>{
-             console.log(data);
+             let val = JSON.parse(data['_body']);
+             if(val.success === true){
+               this.success = val;
+             $("#signup").modal('hide');
+             $('#thankyou').modal('show');
+           
+             }
          },
          (err)=>{
-           console.log(err['_body']);
+             this.error = JSON.parse(err['_body']);
+         //  console.log(this.error.message['email'][0]);
          });
     
     }
@@ -93,8 +103,9 @@ export class SignupComponent implements OnInit {
 
   openSigninModal()
   {
+     
     $("#signup").modal('hide');
-    $("#signin").modal('show');
+   $("#signin").modal('show');
   }
 
 }

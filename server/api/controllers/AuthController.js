@@ -5,11 +5,35 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var atob = require('atob');
+var bcrypt = require('bcrypt');
+SALT_WORK_FACTOR = 10;
 var homeurl = 'http://localhost:4200';
 
 module.exports = {
 	signin : (req,res)=>{
-        console.log(req);
+        data = JSON.parse(atob(req.body.data));
+        console.log(data);
+        User.findOne({email : data.email}, function(err, user){
+            if(err){
+                throw err;
+            }
+            if(user){  
+                User.comparePassword(data.password, user.password, function(err,val){
+                    if(err) return res.json({success: false, message: 'Password Error'});
+                    if(val){
+                           token = jwt.sign({id: user.id});
+                          return res.json({success:true, message: token});
+                    }
+                   else{
+                       return res.json({success : false, message: 'User not found' });
+                   }
+                })
+            }
+            else{
+                return res.json({success : false, message: 'User not found' });
+            }
+        })
+        //find the user in User 
     },
 
     //signup process
@@ -20,11 +44,12 @@ module.exports = {
         User.create(data).exec(function(err,user){
             if(err)
             { 
-                if(err.invalidAttributes){
-                     return res.json({success: false, message: err.invalidAttributes}); 
+               
+                if(err.invalidAttributes['email']){
+                     return res.badRequest({success: false, message: ['Email Already Exists']}); 
                 }
                else{
-                   return res.json({success: false, message: 'Something went wrong'});
+                   return res.badRequest({success: false, message: 'Something went wrong'});
                }      
             }
             if(user)
@@ -39,7 +64,7 @@ module.exports = {
                     }
                 });
                
-                return res.json({success: false, data: user});
+                return res.json({success: true, message: {data: 'User Data Saved Successfully', name: user.firstName+' '+user.lastName, email: user.email }});
             }
         })
       

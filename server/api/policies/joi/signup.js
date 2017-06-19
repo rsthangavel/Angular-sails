@@ -8,7 +8,7 @@ const registerSchema  = Joi.object().options({abortEarly:false}).keys({
     lastName        : Joi.string().required().alphanum(),
     email           : Joi.string().email().required(),
     cityOfResidence : Joi.string().required(),
-    password        : Joi.string().required().regex(/^[a-zA-Z0-9]{3,30}$/).options({ language: { any: { allowOnly: 'must match password' }, label: 'Password Confirmation' } }).label('This label is not used because language.label takes precedence'),
+    password        : Joi.string().required().regex(/^[a-zA-Z0-9]{3,30}$/),
     dateOfBirth     : Joi.date().required()
 
 });
@@ -27,8 +27,12 @@ const registerSchema  = Joi.object().options({abortEarly:false}).keys({
             }
             else
             {
-                console.log(err);
-                return res.badRequest(err);
+                let error = [];
+                for(let k of err.details){
+                    error.push(k.path+ ' '+ 'Validation fails');
+                       //console.log(k.path);
+                }
+                return res.badRequest({success: false, message:error});
             }
          })
      }

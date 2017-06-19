@@ -12,26 +12,28 @@
         <h4 class="modal-title">Signin</h4>
       </div>
       <!--Modal Body-->
+      {{error}}
       <div class="modal-body">
-         <form class="form-horizontal" [formGroup]="signin" (ngSubmit)="formSubmit(signin.value, signin.valid)">
-            <div class="form-group">
+         <form class="form-horizontal" [formGroup]="signin" (ngSubmit)="formSubmit(signin.value, signin.valid)" #f="ngForm">
+            <div class="form-group" [ngClass]="{'has-error': (signin['controls'].email.touched && signin['controls'].email.errors) || (f.submitted && signin['controls'].email.errors)}">
                <input class="form-control" type="text" name="email" formControlName="email" placeholder="Enter your email address">
                    <div invalidmessage="email" >
                          <p *invalidtype="'required'" class="control-label form-group has-error">email should not be Empty</p>
                          <p *invalidtype="'pattern'">EmailID invalid</p>
                    </div>   
             </div>
-            <div class="form-group">
-               <input class="form-control" type="text" name="password" formControlName="password" placeholder="Password">
+            <div class="form-group" [ngClass]="{'has-error': (signin['controls'].password.touched && signin['controls'].password.errors) || (f.submitted && signin['controls'].password.errors)}">
+               <input class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
                     <div invalidmessage="password" >
                         <p *invalidtype="'required'" class="control-label form-group has-error">password should not be Empty</p>
-                        <p *invalidtype="'pattern'">EmailID invalid</p>
+                        <p *invalidtype="'pattern'">Password invalid</p>
                     </div>   
             </div>
-              <input type="submit" value="login">
+            <input type="submit" value="signin" class="btn btn-primary big-rounded-btn"/>
            </form>
       </div>
       <div class="modal-footer">
+
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>
