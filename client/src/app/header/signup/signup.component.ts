@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild, ElementRef,NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { dobValidate } from '../../../shared/dob.validate';
+import { dobValidate } from '../../shared/dob.validate';
 import { comparePassword } from './passwordMatch.validate';
 import { MapsAPILoader } from '@agm/core';
 import { HeaderAuthService } from '../header-auth.service';
-import { Generator } from '../../../shared/generator';
+import { Generator } from '../../shared/generator';
 declare var google: any;
 declare var $:any;
 
