@@ -13,6 +13,9 @@ module.exports = {
             res.send(data);
         });
       
+    },
+    getProfileDetails : function(req,res){
+        res.send("success");
     }
 };
 

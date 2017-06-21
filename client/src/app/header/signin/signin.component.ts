@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HeaderAuthService } from '../header-auth.service';
+import { Router } from '@angular/router';
 declare var $:any;
 @Component({
   selector: 'app-signin',
@@ -11,7 +12,8 @@ export class SigninComponent implements OnInit {
   signin : FormGroup;
   error: string;
   constructor(private _fb: FormBuilder,
-  private _headerService: HeaderAuthService) { }
+  private _headerService: HeaderAuthService,
+  private _router: Router) { }
 
   ngOnInit() {
    
@@ -29,7 +31,9 @@ export class SigninComponent implements OnInit {
              this.error = result.message;
         }
         else{
-          document.cookie = "key1="+result.message;
+             localStorage.setItem('user_token', result.token);
+             $('#signin').modal('hide');
+             this._router.navigate(['profile']);
         }
       });
     }

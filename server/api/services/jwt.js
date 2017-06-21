@@ -9,7 +9,7 @@ tokenSecret = '%$gY)nQ=!}3Bla&43@';
 //issue token to authorized user
 module.exports.sign = function(payload){
    return jwt.sign(payload, tokenSecret, {
-        expiresIn : 3,
+        expiresIn : 3000,
         jwtid     :uuid()
     })
 };

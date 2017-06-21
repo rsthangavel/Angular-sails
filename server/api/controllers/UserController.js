@@ -6,6 +6,10 @@
  */
 
 module.exports = {
-	
+	// index : function(req,res){
+    //    User.aggregate({$match: {"first_name": "thagnave"}},function(err,user){
+    //        res.send(user);
+    //    })
+    // }
 };
 

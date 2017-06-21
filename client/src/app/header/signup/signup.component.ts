@@ -47,16 +47,18 @@ export class SignupComponent implements OnInit {
       last_name         : ['', Validators.compose([Validators.required])],
       email             : ['', Validators.compose([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')])],
       city_of_residence : ['', Validators.compose([Validators.required])],
+      passwordGroup  : this._fb.group({
       password          : ['', Validators.compose([Validators.required])],
-      confirm_password  : ['', Validators.compose([Validators.required])],
+      confirm_password  : ['', Validators.compose([Validators.required])]
+      },  {validator: comparePassword}),
       //Date of Birth formgroup
       dob : this._fb.group({
         month           : ['', Validators.compose([Validators.required])],
         day             : ['', Validators.compose([Validators.required])],
         year            : ['', Validators.compose([Validators.required])]
       }, {validator: dobValidate}),
-      toc               : ['', Validators.required]
-    },  {validator: comparePassword});
+      toc               : ['', Validators.compose([Validators.required, Validators.pattern('true')])]
+    });
 
     //googelMap autocomplete for cityOfResidence
     this.mapsAPILoader.load().then(() => {
@@ -78,7 +80,7 @@ export class SignupComponent implements OnInit {
 
   //signup Form submit
   formSubmit(value,valid:boolean) : void  {
-  
+    console.log(value);
     this.error = '';
     if(valid)
     {

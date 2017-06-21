@@ -1,42 +1,58 @@
-<form class="form-horizontal" [formGroup]="profile">
+<form class="form-horizontal" [formGroup]="profile" (ngSubmit)="formSubmit(profile.value,profile.valid)">
   <div class="row">
     <div class=" col-md-6">Full Name :</div>
 <div class=" col-md-6">Last Name :</div>
   </div>
    <div class="row">
   <div class="form-group col-md-6">
-    <input type="text" class="form-control" formControlName="firstName">
+    <input type="text" class="form-control" formControlName="first_name">
+     <div invalidmessage="first_name" >
+                         <p *invalidtype="'required'" class="control-label form-group has-error">First should not be Empty</p>
+                         <p *invalidtype="'pattern'">Special characters not allowed</p>
+                      </div>
     </div>
     <div class="form-group col-md-6">
-        <input type="text" class="form-control" formControlName="lastName">
+        <input type="text" class="form-control" formControlName="last_name">
+         <div invalidmessage="last_name" >
+                         <p *invalidtype="'required'" class="control-label form-group has-error">Lastname should not be Empty</p>
+                         <p *invalidtype="'pattern'">Special characters not allowed</p>
+                      </div>
     </div>
     </div>
       Gender    :
     <div class="row form-group">
-
-  <input type="radio" name="gender" formControlName="gender" value="male">male
-               <input type="radio" name="gender" formControlName="gender"  value="female">female<br>
+    <div class="col-md-6"><input type="radio" name="gender" formControlName="gender" value="male">male</div>
+    <div class="col-md-6">  <input type="radio" name="gender" formControlName="gender"  value="female">female</div>        
     </div>
 
  EMAIL ADDRESS
      <div class="row">
+       <div class="col-md-12">
        <input type="text" class="form-control" formControlName="email">
+        <div invalidmessage="email" >
+                       <p *invalidtype="'required'" class="control-label form-group has-error">Email should not be Empty</p>
+                       <p *invalidtype="'pattern'">Invalid Email Address</p>
+                     </div>
+        </div>
         </div>
  DATE OF BIRTH       
-  <div formGroupName="dob">
+  <div class="row" formGroupName="dob">
+          <div class="col-md-4">
                      <select class="form-control" formControlName="month" [(ngModel)]="birthModel.month">
                                 <option disabled hidden [value]="birth[0].month">Month</option>
                                 <option *ngFor="let number of Months" [value]="number.value">{{number.name}}</option>
-                              </select>
+                              </select></div>
+                              <div class="col-md-4">
                       <select class="form-control" formControlName="day" [(ngModel)]="birthModel.day">
                                <option disabled hidden [value]="birth[0].day">Day</option>
                                <option *ngFor="let number of Days">{{number}}</option>
                              </select>
-                  
+                  </div><div class="col-md-4">
                      <select class="form-control" formControlName="year" [(ngModel)]="birthModel.year">
                                 <option disabled hidden [value]="birth[0].year">Year</option>
                                 <option *ngFor="let number of Years" [value]="number">{{number}}</option>
                             </select>
+                            </div>
                  </div>
 MOBILE NUMBER
      <div class="row" formGroupName="mobile">
@@ -83,7 +99,8 @@ MOBILE NUMBER
      </select>
    </div>
  </div> 
-   <input type="submit" value="Signup" class="btn btn-primary big-rounded-btn"/>   
+   <input type="submit" value="Save & Continue" class="btn btn-primary big-rounded-btn" autofocus/> 
+     <input type="button" value="Save & Exit" class="btn btn-primary big-rounded-btn"/>  
 </form>
 <!--<div>
   <img id="image" src="https://static.pexels.com/photos/17679/pexels-photo.jpg">

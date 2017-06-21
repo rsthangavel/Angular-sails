@@ -54,21 +54,23 @@
                       </div>
                 </div>
           </div>
-         <div class="row">
-            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['password'].touched && register.controls['password'].errors) || (f.submitted && register.controls['password'].errors)}">
+         <div class="row" formGroupName="passwordGroup">
+            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register['controls'].passwordGroup['controls'].password.touched && register['controls'].passwordGroup['controls'].password.errors) || (f.submitted && register['controls'].passwordGroup['controls'].password.errors)}">
                  Password : <input class="form-control"type="text" formControlName="password">
-                      <div invalidmessage="password" >
+                      <div invalidmessage="passwordGroup.password" >
                          <p *invalidtype="'required'" class="control-label form-group has-error">Password should not be Empty</p>
                          <p *invalidtype="'pattern'">Password invalid</p>
                       </div>
             </div>
-            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register.controls['confirm_password'].touched && register.controls['confirm_password'].errors) || (f.submitted && register.controls['confirm_password'].errors)}">
+            <div class="col-md-6 form-group" [ngClass]="{'has-error': (register['controls'].passwordGroup['controls'].password.touched && register['controls'].passwordGroup['controls'].password.errors) || (f.submitted && register['controls'].passwordGroup['controls'].password.errors)}">
                  Confirm Password : <input class="form-control"type="text" formControlName="confirm_password">
-                      <div invalidmessage="confirm_password" >
+                      <div invalidmessage="passwordGroup.confirm_password" >
                           <p *invalidtype="'required'" class="control-label form-group has-error">confirm Password should not be Empty</p>
-                          <p *invalidtype="'invalid'">confirm Password should match with password</p>
                       </div>
            </div>
+            <div invalidmessage="passwordGroup">
+            <p *invalidtype="'invalid'">Password match error</p>
+        </div> 
          </div>
          <!--DOB FormGroup-->
          <div class="row">
@@ -111,10 +113,12 @@
         <div class="row">
               <label><input type="checkbox" value="1" formControlName="toc">I agree to City Usher Terms of Service, Non-Discrimination Policy, Paymens Terms of Service, Privacy Policy, Tourist Refund Policy, and local Guarantee Terms</label>
                <div invalidmessage="toc" >
-                     <p *invalidtype="'required'" class="control-label form-group has-error">You Should Agree Terms and Conditions</p>    
-              </div>   
+                     <p *invalidtype="'required'" class="control-label form-group has-error">You Should Agree Terms and Conditions</p> 
+                      <p *invalidtype="'pattern'" class="control-label form-group has-error">You Should Agree Terms and Conditions</p>     
+              </div> 
+            
        </div>
-           <input type="submit" value="Signup" class="btn btn-primary big-rounded-btn"/>
+           <input type="submit" value="Signup" class="btn btn-primary big-rounded-btn" autofocus/>
          </form>
       </div>
       <div class="modal-footer">

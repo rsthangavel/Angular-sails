@@ -12,7 +12,7 @@ var homeurl = 'http://localhost:4200';
 module.exports = {
 	signin : (req,res)=>{
         data = JSON.parse(atob(req.body.data));
-        console.log(data);
+       
         User.findOne({email : data.email}, function(err, user){
             if(err){
                 throw err;
@@ -22,7 +22,8 @@ module.exports = {
                     if(err) return res.json({success: false, message: 'Password Error'});
                     if(val){
                            token = jwt.sign({id: user.id});
-                          return res.json({success:true, message: token});
+                          
+                          return res.json({success:true, token: token});
                     }
                    else{
                        return res.json({success : false, message: 'User not found' });
@@ -56,7 +57,7 @@ module.exports = {
             {
                 //create token for Authorized user
                 token = jwt.sign({id: user.id});
-                 nodemailer.send(user.email, token, function(err,response){
+               nodemailer.send(user.email, token, function(err,response){
                     if(err) return res.json(err);
                     else{
                         jwt.issue()
@@ -91,6 +92,19 @@ module.exports = {
             return res.badRequest("Invalid Request");
         }
        
+    },
+    refresh_token : (req,res) =>{      
+      jwt.verify(req.headers.authorization, function(err,response){
+        if(!err){
+           
+               token = jwt.sign({id: response.id});
+           return res.json({success: true, token: token});
+        }
+        else{
+            return res.badRequest();
+}
+     });
+        
     }
     
 };

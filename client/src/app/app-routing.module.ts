@@ -7,16 +7,18 @@ import { SignupComponent } from './header/signup/signup.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 //import { RangeDirective } from './directive/range.directive';
-import { InvalidMessageDirective } from './directive/invalidMessage.directive';
-import { InvalidTypeDirective } from './directive/invalidType.directive';
+
 import { AgmCoreModule } from '@agm/core';
 import { HeaderAuthService } from './header/header-auth.service';
 import { Generator } from './shared/generator';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
+import { RouterGuardService} from './services/routerGuard.service';
+import { AuthGuardService } from './services/authGuard.service';
 const appRoutes : Routes = [
     {path: '', component: HomeComponent},
-    {path : 'profile', loadChildren : './component/profile-update/profile-update.routing.module#ProfileUpdateRoutingModule'}
+    {path : 'profile', loadChildren : './component/profile-update/profile-update.routing.module#ProfileUpdateRoutingModule', canActivate: [RouterGuardService]},
+    
 ]
 @NgModule({
  declarations : [
@@ -26,8 +28,7 @@ const appRoutes : Routes = [
    HeaderComponent,
    FooterComponent,
    //RangeDirective,
-   InvalidMessageDirective,
-   InvalidTypeDirective,
+  
  
  ],
  imports : [
@@ -43,7 +44,7 @@ const appRoutes : Routes = [
    HeaderComponent,
    FooterComponent
  ],
- providers : [HeaderAuthService, Generator],
+ providers : [HeaderAuthService, Generator, RouterGuardService, AuthGuardService],
 })
 export class AppRoutingModule{
 

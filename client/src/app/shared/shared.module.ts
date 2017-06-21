@@ -1,12 +1,19 @@
 import {NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InvalidMessageDirective } from '../directive/invalidMessage.directive';
+import { InvalidTypeDirective } from '../directive/invalidType.directive';
 
-
-@NgModule({  
+@NgModule({ 
+    declarations : [
+InvalidMessageDirective,
+   InvalidTypeDirective,
+    ] ,
     exports : [
         ReactiveFormsModule,
-        CommonModule
+        CommonModule,
+         InvalidMessageDirective,
+   InvalidTypeDirective,
     ]
 })
 export class SharedModule{

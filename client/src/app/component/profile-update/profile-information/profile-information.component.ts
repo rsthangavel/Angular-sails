@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ProfileInformationService } from './profile-information.service';
 import { Generator } from '../../../shared/generator';
 import * as $ from 'jquery';
-//declare var Cropper:any;
 import 'select2';
 
 @Component({
@@ -17,12 +17,14 @@ export class ProfileInformationComponent implements OnInit {
   selectedCountries;
   lang = ['Tamil', 'English', 'Arabic'];
   selectedCode = 1;
+    data;
    Months : string[];
   Days   : number[];
   Years  : number[];
   birthModel = {day: undefined,month:undefined, year: undefined};
   birth  :{day:number,month:number,year:number}[] = [{day: undefined,month:undefined, year: undefined}];
   constructor(private _fb: FormBuilder,
+              private _activateRoute : ActivatedRoute,
               private _profileService: ProfileInformationService, 
               private _generator : Generator) 
  {
@@ -33,6 +35,7 @@ export class ProfileInformationComponent implements OnInit {
 
   ngOnInit() {
    
+   console.log(this._activateRoute.snapshot.data['profile_details']);
   this._profileService.getCountries().subscribe(res=>{
 
    //get countries json file from server
@@ -51,54 +54,62 @@ export class ProfileInformationComponent implements OnInit {
 
    //create Model Driven Forms for Profile Information Page
    this.profile = this._fb.group({
-     firstName : [],
-     lastName : [],
-     gender  : [],
-     email  : [],
+     first_name : ['', Validators.compose([Validators.required])],
+     last_name :['', Validators.compose([Validators.required])],
+     gender  : ['', Validators.compose([Validators.required])],
+     email  : [{value:'test@email.com', disabled:true}, Validators.compose([Validators.required])],
      dob : this._fb.group({
         month           : ['', Validators.compose([Validators.required])],
         day             : ['', Validators.compose([Validators.required])],
         year            : ['', Validators.compose([Validators.required])]
      }),
      mobile : this._fb.group({
-       country   : [],
+       country   : ['', Validators.compose([Validators.required])],
        code   : [{value:'', disabled: true}],
-       number   : [],
-
+       number   : ['', Validators.compose([Validators.required])],
+      
      }),
      profession : this._fb.group({
-       industry : [],
-       title    : [],
+       industry : ['', Validators.compose([Validators.required])],
+       title    : ['', Validators.compose([Validators.required])],
      }),
      languages : this._fb.group({
-       proficientIn : [],
-       familiarWith  : [],
+       proficientIn : ['', Validators.compose([Validators.required])],
+       familiarWith  : ['', Validators.compose([Validators.required])],
      }),
-     aboutMe : []
+     aboutMe : ['', Validators.compose([Validators.required])]
    })
   }
-  getProfession(value){
-    console.log(value);
-    if(value.text == 'f'){
-    this._profileService.getProfessionTitle(value.text).subscribe(res=>{
-      console.log(res);
-    });
-    }
-  }
+
 
   ngAfterViewInit(){
-      
+       
       $('.multi').select2({
        templateResult : this.format,
        templateSelection : this.format
      });
      $('.language_proficient').select2();
      $('.profession_title').select2({
-       templateResult : this.getProfession
-     })
+       templateResult : ()=>{
+          let key = $('.profession_title').data("select2").$dropdown.find("input").val();
+         
+           if($('.profession_title').data("select2").$dropdown.find("input").val().length> 1)
+            {
+             this._profileService.getProfessionTitle(key).subscribe(res=>{ this.data=JSON.parse(res['_body']);}); 
+            //return 'data';
+            
+             //console.log(this.data.resultList.top[0].displayTextEn);
+          }  
+         
+         
+       }
+     });
+     $('.multi').on('change',(e)=>{
+        this.profile.get('mobile.code').setValue(this.countries[$(e.target).val().slice(0,-8)].callingCodes[0]);
+     });
     
   }
-
+ 
   format(option){
    
     if(!option.id){
@@ -116,5 +127,17 @@ export class ProfileInformationComponent implements OnInit {
     }
   
   }
+  formSubmit(value, valid){
+     console.log(value);
+  }
+  //   getProfession(){
+     
+  //   let key = $('.profession_title').data("select2").$dropdown.find("input").val();
+  //   if($('.profession_title').data("select2").$dropdown.find("input").val().length> 1){
+  //   this._profileService.getProfessionTitle(key).subscribe(res=>{
+  //     console.log(res);
+  //   });
+  //   }
+  // }
 
 }

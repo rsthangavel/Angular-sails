@@ -1,0 +1,19 @@
+<form [formGroup]="local_knowledge" class="form-horizontal" (ngSubmit)="formSubmit(local_knowledge.value,local_knowledge.valid)" #f="ngForm">
+  CITY OF RESIDENCE 
+   <div class="row">
+    <div class="col-md-6">
+      <input type="text" class="form-control" name="city_of_residence" formControlName="city"/>
+    </div>
+   </div>
+   CITIES I HAVE VERY GOOD LOCAL KNOWLEDGE OF
+  <div class="row">
+    <div class="col-md-6">
+  <select formControlName="local_area" class="local_area form-control" multiple="multiple">
+    <option *ngFor="let local of locals">{{local}}</option>
+  </select>
+    </div>
+  </div>
+ <app-writeups-list></app-writeups-list>
+ <input type="submit" value="Save & Continue" class="btn btn-primary big-rounded-btn" autofocus/> 
+     <input type="button" value="Save & Exit" class="btn btn-primary big-rounded-btn"/> 
+</form>
