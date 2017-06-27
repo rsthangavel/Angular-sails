@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileInformationService } from './profile-information.service';
+import { ProfessionTitleAutocomplete } from './profession-title.autocomplete';
 import { Generator } from '../../../shared/generator';
 import * as $ from 'jquery';
 import 'select2';
@@ -13,6 +14,9 @@ import 'select2';
 })
 export class ProfileInformationComponent implements OnInit {
   profile : FormGroup;
+    private profession_title: ProfessionTitleAutocomplete;
+      private selValues: string[];
+      items;
   countries;
   selectedCountries;
   lang = ['Tamil', 'English', 'Arabic'];
@@ -34,8 +38,8 @@ export class ProfileInformationComponent implements OnInit {
    }
 
   ngOnInit() {
-   
-   console.log(this._activateRoute.snapshot.data['profile_details']);
+    this.profession_title = new ProfessionTitleAutocomplete("#profession_title");
+   //console.log(this._activateRoute.snapshot.data['profile_details']);
   this._profileService.getCountries().subscribe(res=>{
 
    //get countries json file from server
@@ -89,23 +93,8 @@ export class ProfileInformationComponent implements OnInit {
        templateSelection : this.format
      });
      $('.language_proficient').select2();
-     $('.profession_title').select2({
-       templateResult : ()=>{
-          let key = $('.profession_title').data("select2").$dropdown.find("input").val();
-         
-           if($('.profession_title').data("select2").$dropdown.find("input").val().length> 1)
-            {
-             this._profileService.getProfessionTitle(key).subscribe(res=>{ this.data=JSON.parse(res['_body']);}); 
-            //return 'data';
-            
-             //console.log(this.data.resultList.top[0].displayTextEn);
-          }  
-         
-         
-       }
-     });
      $('.multi').on('change',(e)=>{
-        this.profile.get('mobile.code').setValue(this.countries[$(e.target).val().slice(0,-8)].callingCodes[0]);
+        this.profile.get('mobile.code').setValue('+'+this.countries[$(e.target).val().slice(0,-8)].callingCodes[0]);
      });
     
   }

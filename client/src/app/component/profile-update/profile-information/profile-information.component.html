@@ -81,8 +81,10 @@ MOBILE NUMBER
      </select>
    </div>
    <div class="col-md-6">
-       <select class="form-control"  data-placeholder="Choose a country..." style="width:350px;" class="profession_title col-md-offset-6" formControlName="title">
-       <option selected="0">Type Profession</option>
+       <select class="form-control" data-placeholder="Choose a title..." style="width:350px;" class="profession_title col-md-offset-6" id="profession_title" formControlName="title" >
+       <option *ngFor="let repo of items" value="{{repo.id}}">
+      {{rep.full_name}}
+    </option>
      </select>
    </div>
  </div>   

@@ -10,20 +10,33 @@ SALT_WORK_FACTOR = 10;
 var homeurl = 'http://localhost:4200';
 
 module.exports = {
+    index: (req,res) =>{
+        if(!req.session.user){
+             return  res.send({success:false});
+        }
+        else{
+            return res.json({success:true});
+        }
+    },
 	signin : (req,res)=>{
+    
+         // return res.send("test");
         data = JSON.parse(atob(req.body.data));
-       
+      
         User.findOne({email : data.email}, function(err, user){
             if(err){
                 throw err;
             }
             if(user){  
+                 
                 User.comparePassword(data.password, user.password, function(err,val){
                     if(err) return res.json({success: false, message: 'Password Error'});
                     if(val){
+                      
+                        req.session.user = user.id;
                            token = jwt.sign({id: user.id});
-                          
-                          return res.json({success:true, token: token});
+                         
+                          return res.json({success:true, token: token, session: req.session.user});
                     }
                    else{
                        return res.json({success : false, message: 'User not found' });
@@ -93,7 +106,8 @@ module.exports = {
         }
        
     },
-    refresh_token : (req,res) =>{      
+    refresh_token : (req,res) =>{    
+        console.log(req.session);  
       jwt.verify(req.headers.authorization, function(err,response){
         if(!err){
            

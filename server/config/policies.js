@@ -36,7 +36,10 @@ module.exports.policies = {
   ***************************************************************************/
    AuthController : {
      signup : 'joi/signup',
-     //refresh_token : 'joi/jwt'
+     signin : 'joi/signin',
+   },
+   ProfileInformationController : {
+     // getCountries : 'sessionAuth'
    }
 	// RabbitController: {
 

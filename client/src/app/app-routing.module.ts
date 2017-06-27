@@ -6,8 +6,9 @@ import { SigninComponent } from './header/signin/signin.component';
 import { SignupComponent } from './header/signup/signup.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-//import { RangeDirective } from './directive/range.directive';
-
+import { NotificationComponent } from './header/notification/notification.component';
+import { ChatComponent } from './header/chat/chat.component';
+import { HeaderProfileComponent } from './header/header-profile/header-profile.component';
 import { AgmCoreModule } from '@agm/core';
 import { HeaderAuthService } from './header/header-auth.service';
 import { Generator } from './shared/generator';
@@ -15,8 +16,10 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { RouterGuardService} from './services/routerGuard.service';
 import { AuthGuardService } from './services/authGuard.service';
+import { AuthResolver } from './resolve/auth.resolve';
 const appRoutes : Routes = [
     {path: '', component: HomeComponent},
+      {path : '', outlet: 'app-header', component: HeaderComponent, resolve: {isLoggedIn: AuthResolver}},
     {path : 'profile', loadChildren : './component/profile-update/profile-update.routing.module#ProfileUpdateRoutingModule', canActivate: [RouterGuardService]},
     
 ]
@@ -27,9 +30,9 @@ const appRoutes : Routes = [
    SignupComponent,
    HeaderComponent,
    FooterComponent,
-   //RangeDirective,
-  
- 
+   NotificationComponent,
+   ChatComponent,
+   HeaderProfileComponent,
  ],
  imports : [
        SharedModule,
@@ -44,7 +47,7 @@ const appRoutes : Routes = [
    HeaderComponent,
    FooterComponent
  ],
- providers : [HeaderAuthService, Generator, RouterGuardService, AuthGuardService],
+ providers : [ AuthGuardService,HeaderAuthService, Generator, RouterGuardService, AuthResolver],
 })
 export class AppRoutingModule{
 

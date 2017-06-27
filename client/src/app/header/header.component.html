@@ -2,10 +2,17 @@
 <header>
 <div class="row main-header">
 <div class="container">
-  <h1>Heading</h1>
-</div>
+  <h1>CITYUSHER</h1>
+<div *ngIf = "!isLoggedIn" class="pull-right">
   <app-signup></app-signup>
   <app-signin></app-signin>
+</div>
+<div *ngIf = "isLoggedIn" class="pull-right">
+  <app-notification></app-notification>
+  <app-chat></app-chat>
+  <app-header-profile></app-header-profile>
+</div>
+</div>
 </div>
 </header>
 

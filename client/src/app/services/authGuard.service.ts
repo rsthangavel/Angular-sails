@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
+
 @Injectable()
 export class AuthGuardService {
   private homeUrl = 'http://localhost:1337/';
-  
-  constructor(private _http: Http) { }
+  private _isLoggedIn:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  public _is$:Observable<boolean> =this._isLoggedIn.asObservable();
+  constructor(private _http: Http) {  }
 
   //check if token expires and refesh the token
   refreshToken(){}
 
  isLoggedIn(){
-    let token = localStorage.getItem('user_token');
-   
-  
-  
+ 
   const header =  new Headers();
-      header.append('Content-Type', 'application/x-www-form-urlencoded'); 
-   header.append('Authorization', token);
-   return this._http.post(this.homeUrl+'auth/refresh_token',{},{headers: header});
+      header.append('Content-Type', 'application/x-www-form-urlencoded');  
+      return this._http.post(this.homeUrl+'auth',{},{withCredentials: true,headers: header})
+      .map((res)=>{
+        // this._isLoggedIn = res.json();
+        this._isLoggedIn.next(res.json());
+      return res.json();
+    });
+    
+  
 
-   
 }
 }
 

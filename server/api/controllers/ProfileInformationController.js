@@ -8,13 +8,14 @@ var fs = require('fs');
 
 module.exports = {
 	getCountries : function(req,res){
+      
         fs.readFile('assets/flag.json', function(err,data){
-         
+          
             res.send(data);
         });
       
     },
-    getProfileDetails : function(req,res){
+    getprofileDetails : function(req,res){
         res.send("success");
     }
 };

@@ -11,6 +11,7 @@ import 'select2';
 export class SelectCityComponent implements OnInit {
   local_knowledge : FormGroup;
   locals : string[] = ['MANHATTAN','BROOKLYN','QUEENS'];
+  val = false;;
   constructor(private _fb:FormBuilder) { }
 
   ngOnInit() {
@@ -23,7 +24,10 @@ export class SelectCityComponent implements OnInit {
 
   }
   ngAfterViewInit(){
-     $('.local_area').select2();
+     $('.local_area').select2().on("change",(e) =>{
+        
+        ($(e.target).val().length>0)? this.val = true : this.val=false;
+     })
   }
 
 }

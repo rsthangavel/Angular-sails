@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileUpdateComponent } from './profile-update.component';
 import { PricingComponent } from './pricing/pricing.component';
-import { IdVerificationComponent } from './id-verification/id-verification.component';
 import { ProfileUpdateNavigationComponent } from './profile-update-navigation/profile-update-navigation.component';
 import { ProfileInformationComponent } from './profile-information/profile-information.component';
 import {SharedModule } from '../../shared/shared.module';
@@ -14,14 +13,13 @@ const route : Routes = [
         {path: '', component: ProfileInformationComponent, resolve:{profile_details: ProfileInformationService}   },
         {path: 'area', loadChildren : './area-of-interest/area-of-interest.routing.module#AreaOfInterestRoutingModule'},
         {path: 'price', component: PricingComponent},
-        {path: 'id', component: IdVerificationComponent}
+        {path: 'id', loadChildren : './id-verification/id-verification.routing.module#IdVerificationRoutingModule'}
     ] }
 ]
 @NgModule({
     declarations : [
         ProfileUpdateComponent,
         PricingComponent,
-        IdVerificationComponent,
         ProfileUpdateNavigationComponent,
         ProfileInformationComponent,
 

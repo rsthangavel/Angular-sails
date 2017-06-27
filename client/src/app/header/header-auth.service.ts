@@ -9,18 +9,21 @@ export class HeaderAuthService {
   constructor(private _http: Http) { 
         this.header.append('Accept', 'application/json');
        this.header.append('Content-Type', 'application/x-www-form-urlencoded'); 
+    this._http.post(this.homeUrl+'auth/refresh_token',{},{withCredentials: true,headers: this.header}).map(res=>res.json())
   }
 
    signup(value)
    {  
-        //copy one object to another object -- pass by value 
-        let signup_value = JSON.parse(JSON.stringify(value));
+        
+       // let signup_value = JSON.parse(JSON.stringify(value));
+       //cloning objects
+       let signup_value = Object.assign({}, value);
         signup_value.date_of_birth = new Date(value.dob.year, value.dob.month, value.dob.day);
         signup_value.password = value.passwordGroup.password;
         delete signup_value.passwordGroup;
         delete signup_value.dob;
         let data = 'data='+btoa(JSON.stringify(signup_value));
-        return this._http.post(this.homeUrl+'auth/signup' ,data, {headers : this.header})
+        return this._http.post(this.homeUrl+'auth/signup' ,data, {withCredentials: true, headers : this.header})
         .map((res: Response)=> res)
         ._catch((error:Response)=>{
         return Observable.throw(error);
@@ -29,7 +32,7 @@ export class HeaderAuthService {
    signin(value)
    {
          let data = 'data='+btoa(JSON.stringify(value));
-        return this._http.post(this.homeUrl+'auth/signin', data, {headers : this.header})
+        return this._http.post(this.homeUrl+'auth/signin', data, {withCredentials: true, headers : this.header})
         .map((res: Response)=> res)
         ._catch((error:Response)=> {
           return Observable.throw(error);

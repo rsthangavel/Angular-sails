@@ -17,3 +17,17 @@
  <input type="submit" value="Save & Continue" class="btn btn-primary big-rounded-btn" autofocus/> 
      <input type="button" value="Save & Exit" class="btn btn-primary big-rounded-btn"/> 
 </form>
+<form [formGroup]="local_knowledge" *ngIf="val">
+  <input type="radio" name="resturant_and_food" />RESTAURANT AND FOOD
+   <input type="radio" name="shops_and_market" />SHOPS AND MARKET
+    <input type="radio" name="hideouts" />HIDEOUTS
+     <input type="radio" name="arts_and_architecture" />ARTS AND ARCHITECTURE
+      <input type="radio" name="parks_and_nature" />PARKS AND NATURE
+       <input type="radio" name="pub_and_nightlife" />PUB AND NIGHTLIFE
+        <input type="radio" name="fun_and_activities" />FUN AND ACTIVITIES
+         <input type="radio" name="galleries_and_musuems" />GALLERIES AND MUSUEMS
+          <input type="radio" name="historical_spots" />HISTORICAL SPOTS
+           <input type="radio" name="spa_and_wellness" />SPA AND WELLNESS
+            <input type="radio" name="adventure_and_exploring" />ADVENTURE AND EXPLORING
+            </form>
+            {{val}}
