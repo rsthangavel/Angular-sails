@@ -105,8 +105,12 @@ export class SignupComponent implements OnInit {
 
   openSigninModal()
   {
-     
-    $("#signup").modal('hide');
+ 
+   //focusin login buttton when user click login in signup modal
+   $('#signin').on("shown.bs.modal", function() {
+       $('#login').focus();
+    });
+   $("#signup").modal('hide');
    $("#signin").modal('show');
   }
 

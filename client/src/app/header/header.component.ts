@@ -17,7 +17,6 @@ export class HeaderComponent implements OnInit {
   
     this._guard._is$.subscribe((data)=>{
         this.isLoggedIn = data['success'];
-      console.log(data);
     });
   }
 }

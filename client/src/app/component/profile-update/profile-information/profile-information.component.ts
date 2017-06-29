@@ -81,7 +81,7 @@ export class ProfileInformationComponent implements OnInit {
        proficientIn : ['', Validators.compose([Validators.required])],
        familiarWith  : ['', Validators.compose([Validators.required])],
      }),
-     aboutMe : ['', Validators.compose([Validators.required])]
+     about_me : ['', Validators.compose([Validators.required])]
    })
   }
 

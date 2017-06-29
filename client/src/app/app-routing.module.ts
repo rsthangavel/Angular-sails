@@ -9,6 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NotificationComponent } from './header/notification/notification.component';
 import { ChatComponent } from './header/chat/chat.component';
 import { HeaderProfileComponent } from './header/header-profile/header-profile.component';
+import { CityusherComponent } from './home/cityusher/cityusher.component';
 import { AgmCoreModule } from '@agm/core';
 import { HeaderAuthService } from './header/header-auth.service';
 import { Generator } from './shared/generator';
@@ -26,13 +27,14 @@ const appRoutes : Routes = [
 @NgModule({
  declarations : [
    HomeComponent,
+   HeaderComponent,
    SigninComponent,
    SignupComponent,
-   HeaderComponent,
-   FooterComponent,
    NotificationComponent,
    ChatComponent,
    HeaderProfileComponent,
+   CityusherComponent,
+   FooterComponent
  ],
  imports : [
        SharedModule,

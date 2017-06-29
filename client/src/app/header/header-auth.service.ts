@@ -38,5 +38,12 @@ export class HeaderAuthService {
           return Observable.throw(error);
         })
    }
+   logout(){
+     return this._http.post(this.homeUrl+'auth/logout', {}, {withCredentials:true, headers: this.header})
+     .map((res:Response)=>res)
+     ._catch((error:Response)=>{
+       return Observable.throw(error);
+     });
+   }
 
 }

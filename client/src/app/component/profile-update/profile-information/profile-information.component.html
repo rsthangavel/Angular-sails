@@ -1,7 +1,8 @@
-<form class="form-horizontal" [formGroup]="profile" (ngSubmit)="formSubmit(profile.value,profile.valid)">
+<h1 class="text-center">Personal Information</h1>
+<p class="text-center">Please upload a photo and provide some basic information about you.</p><form class="form-horizontal" [formGroup]="profile" (ngSubmit)="formSubmit(profile.value,profile.valid)">
   <div class="row">
-    <div class=" col-md-6">Full Name :</div>
-<div class=" col-md-6">Last Name :</div>
+    <div class=" col-md-6">Full Name </div>
+<div class=" col-md-6">Last Name </div>
   </div>
    <div class="row">
   <div class="form-group col-md-6">
@@ -101,6 +102,13 @@ MOBILE NUMBER
      </select>
    </div>
  </div> 
+ <label for="about">AboutMe</label>
+ <div class="row form-group">
+   <div class="col-md-6">
+     <textarea class="form-control" rows="7" formControlName="about_me">
+     </textarea>
+   </div>
+ </div>
    <input type="submit" value="Save & Continue" class="btn btn-primary big-rounded-btn" autofocus/> 
      <input type="button" value="Save & Exit" class="btn btn-primary big-rounded-btn"/>  
 </form>

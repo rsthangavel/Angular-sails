@@ -25,6 +25,7 @@ export class InvalidMessageDirective implements OnInit {
   setVisible(){
    // console.log(this.control);
        //console.log(this._fg.form.get(this.invalidmessage).valid);
+
       if(this.control.invalid && (this.control.dirty || this.hasSubmitted)){
         this._render.removeStyle(this._el.nativeElement, 'display');
       }

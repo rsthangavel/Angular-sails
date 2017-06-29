@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HeaderAuthService } from '../header-auth.service';
+import { Router } from '@angular/router';
+import { AuthGuardService } from '../../services/authGuard.service';
 @Component({
   selector: 'app-header-profile',
   templateUrl: './header-profile.component.html',
@@ -7,11 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _headerService: HeaderAuthService, private _router: Router, private _auth: AuthGuardService) { }
 
   ngOnInit() {
   }
  logout(){
-   alert("Logout user");
+  this._headerService.logout().subscribe((res)=>{
+      this._router.navigate(['']);
+        this._auth.isLoggedIn().subscribe();
+  });
+
  }
 }

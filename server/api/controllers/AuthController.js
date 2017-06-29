@@ -28,10 +28,10 @@ module.exports = {
                 throw err;
             }
             if(user){  
-                 
-                User.comparePassword(data.password, user.password, function(err,val){
+                 if(user.status === true){
+                User.comparePassword(data.password, user.password, function(err,match){
                     if(err) return res.json({success: false, message: 'Password Error'});
-                    if(val){
+                    if(match){
                       
                         req.session.user = user.id;
                            token = jwt.sign({id: user.id});
@@ -39,9 +39,13 @@ module.exports = {
                           return res.json({success:true, token: token, session: req.session.user});
                     }
                    else{
-                       return res.json({success : false, message: 'User not found' });
+                       return res.json({success : false, message: 'Password error' });
                    }
                 })
+            }
+            else{
+                return res.json({success:false, message: 'Please verify your account'});
+            }
             }
             else{
                 return res.json({success : false, message: 'User not found' });
@@ -95,9 +99,22 @@ module.exports = {
                   }
                   else
                   {
-                       return res.redirect(homeurl+'/email_verified');
+                     // console.log(response);
+                     User.findOne({"id" :response.id, "status": "false"}, function(err,user){
+                      
+                         if(err) throw err;
+                         if(user){
+                               user.status = true;
+                               user.save();
+                               return res.redirect(homeurl+'/email_verified');
+                         }
+                         else{
+                                var string = encodeURIComponent('Token Invalid or Expired   ');
+                               return res.redirect(homeurl);
+                         }
+                     })  
+                     
                   }
-                  //console.log(err, response);
               });
               
         }
@@ -106,20 +123,22 @@ module.exports = {
         }
        
     },
-    refresh_token : (req,res) =>{    
-        console.log(req.session);  
-      jwt.verify(req.headers.authorization, function(err,response){
-        if(!err){
-           
-               token = jwt.sign({id: response.id});
-           return res.json({success: true, token: token});
-        }
-        else{
-            return res.badRequest();
-}
-     });
-        
-    }
+
+    //logout
+    logout : (req,res)=>{
+        console.log(req.session.user);
+        User.find(req.session.user, function(err,user){
+            if(err) return res.negotiate(err);
+            if(!user){
+                res.send(null);
+            }
+            else{
+                req.session.user = null;
+                return res.ok();
+            }
+        })
+     
+         }
     
 };
 

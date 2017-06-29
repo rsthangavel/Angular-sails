@@ -9,3 +9,6 @@
     border: 1px grey solid;
     font-size: 2rem;
 }
+.pac-container {
+    z-index: 9999;
+}
